@@ -22,3 +22,8 @@ class TestBubbleSort:
         """Test that bubble sort works on random arrays."""
         arr = [1, 3, 8, 4, 2]
         assert bubble_sort(arr) == [1, 2, 3, 4, 8]
+
+    def test_bubble_sort_reverse_sorted(self):
+        """Test that bubble sort works on reverse sorted arrays."""
+        arr = [5, 4, 3, 2, 1]
+        assert bubble_sort(arr) == [1, 2, 3, 4, 5]

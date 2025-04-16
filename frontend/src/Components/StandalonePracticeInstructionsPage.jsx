@@ -86,7 +86,7 @@ const StandalonePracticeInstructionsPage = () => {
   if (loading) return <div className="loading-message">Loading practice instructions...</div>;
   if (error) return <div className="error-message">{error}</div>;
   if (!issue) return null;
-  return <PracticeInstructions issue={issue} onClose={() => navigate(-1)} />;
+  return <PracticeInstructions issue={issue} isStandalone={true} onClose={() => navigate(-1)} />;
 };
 
 export default StandalonePracticeInstructionsPage;

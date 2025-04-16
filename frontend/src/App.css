@@ -1,0 +1,235 @@
+#root {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  color: #24292e;
+}
+
+.loading-message {
+  margin-top: 1.5rem;
+  color: #0366d6;
+  font-weight: 500;
+}
+
+.error-message {
+  margin-top: 1.5rem;
+  color: #d73a49;
+  padding: 0.75rem;
+  background-color: #ffebe9;
+  border-radius: 4px;
+  border: 1px solid #f9d0d0;
+}
+
+.no-results {
+  margin-top: 2rem;
+  color: #586069;
+  font-style: italic;
+}
+
+.results-container {
+  width: 100%;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.results-container h2 {
+  margin-bottom: 1rem;
+  color: #24292e;
+  border-bottom: 1px solid #e1e4e8;
+  padding-bottom: 0.5rem;
+}
+
+.repo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.repo-item {
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.repo-item:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.repo-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.repo-item h3 a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.repo-item h3 a:hover {
+  text-decoration: underline;
+}
+
+.repo-description {
+  color: #586069;
+  margin-bottom: 1rem;
+}
+
+.repo-stats {
+  display: flex;
+  gap: 1rem;
+  color: #586069;
+  font-size: 0.9rem;
+}
+
+.repo-language {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  background-color: #f1f8ff;
+  color: #0366d6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+  border: 1px solid #c8e1ff;
+}
+
+/* Authentication Styles */
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 1.5rem;
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.token-form {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+.token-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.token-input:focus {
+  border-color: #0366d6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
+}
+
+.token-submit {
+  background-color: #2ea44f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.token-submit:hover {
+  background-color: #2c974b;
+}
+
+.token-help {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #586069;
+}
+
+.token-help a {
+  color: #0366d6;
+}
+
+.token-help code {
+  background-color: #f1f8ff;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.auth-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #f6f8fa;
+  border-radius: 4px;
+  color: #2ea44f;
+  font-weight: 500;
+}
+
+.logout-button {
+  background: none;
+  border: 1px solid #e1e4e8;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #586069;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.logout-button:hover {
+  background-color: #f3f4f6;
+}

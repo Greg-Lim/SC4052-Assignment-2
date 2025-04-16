@@ -24,6 +24,65 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Search Header Styling */
+.search-header {
+  padding: 15px 20px;
+  text-align: center;
+  border-bottom: 1px solid #e1e4e8;
+  background-color: #f6f8fa;
+}
+
+.search-header h2 {
+  margin: 0 0 8px 0;
+  color: #24292e;
+  font-size: 1.3rem;
+}
+
+.search-description {
+  margin: 0;
+  color: #586069;
+  font-size: 0.9rem;
+}
+
+/* Search Mode Selector */
+.search-mode-selector {
+  display: flex;
+  border-bottom: 1px solid #e1e4e8;
+  background-color: #f6f8fa;
+}
+
+.mode-option {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  color: #586069;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.mode-option.active {
+  background-color: white;
+  color: #24292e;
+  border-bottom: 2px solid #0366d6;
+}
+
+.mode-option:hover:not(.active) {
+  background-color: #edf0f2;
+}
+
+.mode-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
 .main-search-row {
   display: flex;
   width: 100%;
@@ -92,7 +151,7 @@
   background-color: #f6f8fa;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
   overflow: hidden;
-  max-height: 300px;
+  max-height: 500px;
   opacity: 1;
 }
 
@@ -158,4 +217,22 @@
 
 .quick-select-repo:hover {
   background-color: #0256b9;
+}
+
+/* Practice Mode Checkbox Styling */
+.practice-mode-toggle {
+  margin-top: 8px;
+}
+
+.practice-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.practice-checkbox-input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }

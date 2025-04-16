@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './SearchBar.css';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onIssueSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [language, setLanguage] = useState('');
   const [repoFormat, setRepoFormat] = useState('');
@@ -10,44 +10,61 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!searchQuery.trim()) return;
-    
     setIsLoading(true);
     
-    // Call the onSearch prop with the current query and filters
-    onSearch({
+    // Call the onIssueSearch prop with the query and filters
+    // Always search for closed issues with PRs
+    onIssueSearch({
       query: searchQuery.trim(),
       language: language.trim(),
-      repoFormat: repoFormat.trim()
+      repoFormat: repoFormat.trim(),
+      state: 'closed',
+      practiceMode: true // Always true to only show issues with PRs
     })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  // Popular programming languages for the dropdown
-  const popularLanguages = [
-    'JavaScript', 'Python', 'Java', 'TypeScript', 
-    'C#', 'PHP', 'C++', 'Ruby', 'Go', 'Swift'
-  ];
+  // Popular programming languages for the dropdown with their file extension mappings
+  const languageMappings = {
+    'JavaScript': ['js', 'jsx', 'ts', 'tsx'],
+    'Python': ['py', 'python'],
+    'Java': ['java'],
+    'TypeScript': ['ts', 'tsx'],
+    'C#': ['cs', 'csharp'],
+    'PHP': ['php'],
+    'C++': ['cpp', 'cc', 'cxx', 'h', 'hpp'],
+    'Ruby': ['rb'],
+    'Go': ['go'],
+    'Swift': ['swift']
+  };
+
+  // Extract language names for the dropdown
+  const languageNames = Object.keys(languageMappings);
 
   return (
     <div className="search-bar-container">
       <form onSubmit={handleSubmit} className="search-form">
         <div className="fixed-search-section">
+          <div className="search-header">
+            <h2>Search for Issues to Practice Fixing</h2>
+            <p className="search-description">Find closed issues with pull requests to practice your coding skills</p>
+          </div>
+          
           <div className="main-search-row">
             <input
               type="text"
               className="search-input"
-              placeholder="Search GitHub code..."
+              placeholder="Search GitHub issues..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Search GitHub code"
+              aria-label="Search GitHub issues"
             />
             <button 
               type="submit" 
               className="search-button"
-              disabled={isLoading || !searchQuery.trim()}
+              disabled={isLoading} // Only disable when loading
             >
               {isLoading ? 'Searching...' : 'Search'}
             </button>
@@ -75,7 +92,7 @@ const SearchBar = ({ onSearch }) => {
                 className="filter-select"
               >
                 <option value="">Any Language</option>
-                {popularLanguages.map(lang => (
+                {languageNames.map(lang => (
                   <option key={lang} value={lang.toLowerCase()}>{lang}</option>
                 ))}
               </select>

@@ -4,26 +4,8 @@ import './App.css';
 import SearchBar from './Components/SearchBar';
 import { Octokit } from "octokit";
 import PracticeInstructions from './Components/PracticeInstructions';
-import StandalonePracticeInstructionsPage from './Components/StandalonePracticeInstructionsPage';
+import PracticeInstructionsPage from './Components/PracticeInstructionsPage';
 
-function PracticeInstructionsPage({ fetchIssueDetails }) {
-  const { owner, repo, issueNumber } = useParams();
-  const [issue, setIssue] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const load = async () => {
-      if (fetchIssueDetails) {
-        const found = await fetchIssueDetails({ owner, repo, issueNumber });
-        setIssue(found);
-      }
-    };
-    load();
-  }, [owner, repo, issueNumber, fetchIssueDetails]);
-
-  if (!issue) return <div className="loading-message">Loading practice instructions...</div>;
-  return <PracticeInstructions issue={issue} onClose={() => navigate(-1)} />;
-}
 
 function App() {
   const [issues, setIssues] = useState([]);
@@ -347,7 +329,7 @@ function App() {
             )}
           </>
         } />
-        <Route path="/practice/:owner/:repo/:issueId" element={<StandalonePracticeInstructionsPage />} />
+        <Route path="/practice/:owner/:repo/:issueId" element={<PracticeInstructionsPage />} />
       </Routes>
     </div>
   );

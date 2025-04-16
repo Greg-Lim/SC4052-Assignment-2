@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Octokit } from "octokit";
 import PracticeInstructions from "./PracticeInstructions";
 
-const StandalonePracticeInstructionsPage = () => {
+const PracticeInstructionsPage = () => {
   const { owner, repo, issueId } = useParams();
   const [issue, setIssue] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -89,4 +89,4 @@ const StandalonePracticeInstructionsPage = () => {
   return <PracticeInstructions issue={issue} isStandalone={true} onClose={() => navigate(-1)} />;
 };
 
-export default StandalonePracticeInstructionsPage;
+export default PracticeInstructionsPage;

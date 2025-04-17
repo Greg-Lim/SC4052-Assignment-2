@@ -1,6 +1,5 @@
 .search-bar-container {
   width: 100%;
-  max-width: 1600px;
   margin: 0 auto;
   padding: 20px 0;
   position: relative;
@@ -124,7 +123,6 @@
 }
 
 .advanced-options-toggle {
-  width: 100%;
   padding: 8px;
   display: flex;
   justify-content: center;

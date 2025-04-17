@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Octokit } from "octokit";
 import PracticeInstructions from "./PracticeInstructions";
+import PRReviewPanel from "./PRReviewPanel";
 
 const PracticeInstructionsPage = () => {
   const { owner, repo, issueId } = useParams();
@@ -86,7 +87,16 @@ const PracticeInstructionsPage = () => {
   if (loading) return <div className="loading-message">Loading practice instructions...</div>;
   if (error) return <div className="error-message">{error}</div>;
   if (!issue) return null;
-  return <PracticeInstructions issue={issue} isStandalone={true} onClose={() => navigate(-1)} />;
+  return (
+    <div style={{ display: 'flex', width: '100%', minHeight: '80vh', gap: '2rem' }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <PracticeInstructions issue={issue} isStandalone={true} onClose={() => navigate(-1)} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <PRReviewPanel issue={issue} />
+      </div>
+    </div>
+  );
 };
 
 export default PracticeInstructionsPage;

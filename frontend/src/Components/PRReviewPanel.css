@@ -1,9 +1,43 @@
 /* PRReviewPanel.css */
 .pr-review-panel-container {
   height: calc(100vh - 4rem);
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   background: #fafbfc;
   padding: 2rem;
+}
+
+.repo-to-review {
+  width: calc(100% - 180px); /* leave space for button */
+  min-width: 200px;
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 10px;
+  margin: 1rem 0;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.repo-select-button {
+  display: inline-block;
+  padding: 10px 18px;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  background: #2d72d9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  vertical-align: middle;
+}
+.repo-select-button:disabled {
+  background: #b2c6e0;
+  cursor: not-allowed;
 }

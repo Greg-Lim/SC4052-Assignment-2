@@ -10,18 +10,44 @@ const PRReviewPanel = ({ issue, repoLog, ghAccount }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [allHints, setAllHints] = React.useState([]);
-  const [hintLoading, setHintLoading] = React.useState([]);
+  const [hintLoading, setHintLoading] = React.useState(false);
+  const [hint, setHint] = React.useState(null);
+  const [hintError, setHintError] = React.useState(null);
 
   const originalRepo = `https://github.com/${ghAccount.login}/${issue.repoInfo.name}`;
+  const apiKey = localStorage.getItem('openai_api_key');
 
-  function getHint() {
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    const prompt = `Generate a hint for the following code changes:\n\n${compareResult?.files.map(file => file.patch).join('\n\n')}`;
-    return openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-    });
-    
+  async function getHint() {
+    setHintLoading(true);
+    setHintError(null);
+    setHint(null);
+    try {
+      const apiKey = localStorage.getItem('openai_api_key');
+      if (!apiKey) throw new Error('No OpenAI API key found.');
+      const prompt = `Generate a hint for the following code changes:\n\n${compareResult?.files?.map(file => file.patch).join('\n\n')}`;
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4.1-nano-2025-04-14',
+          messages: [
+            { role: 'system', content: 'You are a helpful assistant that gives hints for code changes.' },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 100
+        })
+      });
+      if (!res.ok) throw new Error('OpenAI API error');
+      const data = await res.json();
+      setHint(data.choices?.[0]?.message?.content || 'No hint received.');
+    } catch (err) {
+      setHintError(err.message);
+    } finally {
+      setHintLoading(false);
+    }
   }
 
   // Safe mapping for diffs
@@ -91,8 +117,14 @@ const PRReviewPanel = ({ issue, repoLog, ghAccount }) => {
       {
         diffs && (
           <div>
-            {/* Placeholder for diff display */}
-            <button className="generate-hint-button">Generate Hint</button>
+            <button className="generate-hint-button"
+              onClick={getHint}
+              disabled={hintLoading}
+            >
+              {hintLoading ? 'Generating Hint...' : 'Generate Hint'}
+            </button>
+            {hintError && <div style={{color: 'red', marginTop: 8}}>{hintError}</div>}
+            {hint && <div style={{marginTop: 8, background: '#fffbdd', padding: 8, borderRadius: 4}}>{hint}</div>}
           </div>
         )
       }

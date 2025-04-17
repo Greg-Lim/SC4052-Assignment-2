@@ -289,3 +289,13 @@
   background-color: #c8e1f9;
   color: #0356b6;
 }
+.ai-review-instructions {
+  background-color: #eaf5ff;
+  border: 1px solid #b3d8fd;
+  border-radius: 6px;
+  padding: 0rem 1.5rem;
+  margin: 1rem 0;
+  color: #174366;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(27, 90, 160, 0.06);
+}

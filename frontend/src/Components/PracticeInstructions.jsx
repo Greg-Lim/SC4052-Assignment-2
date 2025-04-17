@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './PracticeInstructions.css';
 
-const PracticeInstructions = ({ issue }) => {
+const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
   const navigate = useNavigate();
   const [showFiles, setShowFiles] = useState(false);
   if (!issue || !issue.repoInfo) return null;
-  const beforeCommitSha = issue.prDetails?.base?.sha;
-  const afterCommitSha = issue.prDetails?.head?.sha;
+  const beforeCommitSha = repoLog.parents[0]?.sha;
+  const afterCommitSha = issue.prDetails?.merge_commit_sha;
+  const [withAIReview, setWithAIReview] = useState(false);
 
   return (
     <div className="selected-issue-container">
@@ -100,12 +101,41 @@ const PracticeInstructions = ({ issue }) => {
       )}
       <div className="practice-instructions">
         <h3>Practice Instructions</h3>
+        <div className="ai-review-option">
+          <label className="checkbox-container">
+            <input 
+              type="checkbox" 
+              checked={withAIReview}
+              onChange={() => setWithAIReview(prev => !prev)} 
+            />
+            <span className="checkbox-label">Use AI review for my solution</span>
+          </label>
+          {withAIReview && (
+            <div className="ai-review-instructions">
+              <p>With AI review enabled, you will create a fork of the repository . The AI will review your code and provide feedback.</p>
+            </div>
+          )}
+        </div>
         <p>Follow these steps to practice solving this issue:</p>
         <ol className="instructions-list">
           <li>
+            <strong>Fork the repository:</strong>
+            <p>This step is optional only if you want AI review</p>
+            <p> Go to <a href={`https://github.com/${issue.repoInfo.fullName}`} target="_blank" rel="noopener noreferrer">https://github.com/{issue.repoInfo.fullName}</a> and click the <b>Fork</b> button at the top right.</p>
+          </li>
+          <li>
             <strong>Clone the repository:</strong>
             <pre className="code-block">
-              <code>git clone https://github.com/{issue.repoInfo.fullName}.git</code>
+              {
+                withAIReview ? (
+                  <code>
+                    git clone https://github.com/{ghAccount.login}/{issue.repoInfo.name}.git
+                  </code>
+                ) : (
+                  <code>git clone https://github.com/{issue.repoInfo.fullName}.git</code>
+                )
+              }
+              
             </pre>
           </li>
           <li>
@@ -157,15 +187,25 @@ const PracticeInstructions = ({ issue }) => {
           <li>
             <strong>Try to fix the issue yourself based on the description.</strong>
           </li>
+          {
+            withAIReview && (
+              <li>
+                <strong>Once you have a solution, use the AI review tool to get feedback:</strong>
+                <p>Run our AI review command to analyze your code:</p>
+              </li>
+            )
+          }
+
           {afterCommitSha && (
             <li>
               <strong>After attempting your fix, compare with the actual solution:</strong>
+              <p>Compare your code to the actual code change</p>
               <pre className="code-block">
                 <code>git checkout {afterCommitSha}</code>
               </pre>
-              <p>Then review what changes were made to fix the issue:</p>
+              <p>Review what changes were made to fix the issue:</p>
               <pre className="code-block">
-                <code>git diff {beforeCommitSha} {afterCommitSha}</code>
+                <code>git diff {afterCommitSha} HEAD</code>
               </pre>
             </li>
           )}

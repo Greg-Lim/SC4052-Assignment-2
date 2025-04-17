@@ -7,6 +7,8 @@ import PRReviewPanel from "./PRReviewPanel";
 const PracticeInstructionsPage = () => {
   const { owner, repo, issueId } = useParams();
   const [issue, setIssue] = useState(null);
+  const [ghAccount, setGhAccount] = useState(null);
+  const [repoLog, setRepoLog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -18,6 +20,10 @@ const PracticeInstructionsPage = () => {
       try {
         const token = localStorage.getItem("github_token");
         const octokit = new Octokit({ auth: token });
+        // Fetch GitHub account info
+        const accountResp = await octokit.request("GET /user");
+        const accountData = accountResp.data;
+        setGhAccount(accountData);
         // Fetch issue by id
         const issueResp = await octokit.request(
           "GET /repos/{owner}/{repo}/issues/{issue_id}",
@@ -40,6 +46,7 @@ const PracticeInstructionsPage = () => {
         let prDetails = null;
         let filesChanged = [];
         let commitsInPR = [];
+        let repoLogData = null;
         if (prsResp.data.items.length > 0) {
           const prUrl = prsResp.data.items[0].pull_request.url;
           const prNumber = prUrl.split("/").pop();
@@ -61,6 +68,14 @@ const PracticeInstructionsPage = () => {
             { owner, repo, pull_number: prNumber }
           );
           commitsInPR = commitsResp.data;
+          // Fetch commit log for merge commit sha
+          if (prDetails && prDetails.merge_commit_sha) {
+            const commitResp = await octokit.request(
+              "GET /repos/{owner}/{repo}/commits/{commit_sha}",
+              { owner, repo, commit_sha: prDetails.merge_commit_sha }
+            );
+            repoLogData = commitResp.data;
+          }
         }
         setIssue({
           ...issueData,
@@ -75,6 +90,7 @@ const PracticeInstructionsPage = () => {
             fullName: `${owner}/${repo}`,
           },
         });
+        setRepoLog(repoLogData);
       } catch (err) {
         setError(err.message || "Failed to load issue data");
       } finally {
@@ -90,10 +106,10 @@ const PracticeInstructionsPage = () => {
   return (
     <div style={{ display: 'flex', width: '100%', minHeight: '80vh', gap: '2rem' }}>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <PracticeInstructions issue={issue} isStandalone={true} onClose={() => navigate(-1)} />
+        <PracticeInstructions issue={issue} repoLog={repoLog} ghAccount={ghAccount}/>
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <PRReviewPanel issue={issue} />
+        <PRReviewPanel issue={issue} repoLog={repoLog} ghAccount={ghAccount}/>
       </div>
     </div>
   );

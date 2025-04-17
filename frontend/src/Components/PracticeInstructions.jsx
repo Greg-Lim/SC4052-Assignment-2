@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './PracticeInstructions.css';
 
 const PracticeInstructions = ({ issue }) => {
   const navigate = useNavigate();
+  const [showFiles, setShowFiles] = useState(false);
   if (!issue || !issue.repoInfo) return null;
   const beforeCommitSha = issue.prDetails?.base?.sha;
   const afterCommitSha = issue.prDetails?.head?.sha;
@@ -130,17 +131,27 @@ const PracticeInstructions = ({ issue }) => {
           {issue.filesChanged && issue.filesChanged.length > 0 && (
             <li>
               <strong>Files you should examine:</strong>
-              <ul className="files-list">
-                {issue.filesChanged.map((file, index) => (
-                  <li key={index} className="file-item">
-                    <code>{file.filename}</code>
-                    <span className="file-changes">
-                      {file.additions > 0 && <span className="additions">+{file.additions}</span>}
-                      {file.deletions > 0 && <span className="deletions">-{file.deletions}</span>}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <button
+                type="button"
+                className="toggle-files-btn"
+                onClick={() => setShowFiles((prev) => !prev)}
+                style={{ marginLeft: 8, marginBottom: 4 }}
+              >
+                {showFiles ? "Hide files" : "Show files"}
+              </button>
+              {showFiles && (
+                <ul className="files-list">
+                  {issue.filesChanged.map((file, index) => (
+                    <li key={index} className="file-item">
+                      <code>{file.filename}</code>
+                      <span className="file-changes">
+                        {file.additions > 0 && <span className="additions">+{file.additions}</span>}
+                        {file.deletions > 0 && <span className="deletions">-{file.deletions}</span>}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           )}
           <li>

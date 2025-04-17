@@ -1,0 +1,9 @@
+/* PRReviewPanel.css */
+.pr-review-panel-container {
+  height: calc(100vh - 4rem);
+  box-sizing: border-box;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background: #fafbfc;
+  padding: 2rem;
+}

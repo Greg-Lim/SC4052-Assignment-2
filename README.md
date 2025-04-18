@@ -17,9 +17,8 @@ This project implements a SaaS application leveraging GitHub's Search API integr
 
 ## Installation
 
-1. Clone the repository
+1. Go to frontend directory
 ```bash
-git clone <repository-url>
 cd SC4052-Assignment-2/frontend
 ```
 

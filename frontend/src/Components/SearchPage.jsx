@@ -120,7 +120,7 @@ function SearchPage() {
       const owner = urlParts[4];
       const repo = urlParts[5];
       const issueNumber = urlParts[7];
-      navigate(`/practice/${owner}/${repo}/${issueNumber}`);
+      window.open(`/practice/${owner}/${repo}/${issueNumber}`, '_blank', 'noopener,noreferrer');
     } catch (err) {
       setError(err.message || 'An error occurred while fetching issue details');
     } finally {

@@ -155,7 +155,7 @@ Features of the Search Page UI include:
 *Figure 5: Issue Description Page UI*
 
 
-<img src="/daigrams/code_hint_ui.png" height="500" display="block">
+<img src="/daigrams/code_hint_ui.png" height="400" display="block">
 
 
 *Figure 6: Hints UI*

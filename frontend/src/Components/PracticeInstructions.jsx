@@ -8,7 +8,7 @@ const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
   if (!issue || !issue.repoInfo) return null;
   const beforeCommitSha = repoLog.parents[0]?.sha;
   const afterCommitSha = issue.prDetails?.merge_commit_sha;
-  const [withAIReview, setWithAIReview] = useState(false);
+  const [withAIReview, setWithAIReview] = useState(true);
 
   return (
     <div className="selected-issue-container">
@@ -199,11 +199,11 @@ const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
           {afterCommitSha && (
             <li>
               <strong>After attempting your fix, compare with the actual solution:</strong>
-              <p>Compare your code to the actual code change</p>
+              {/* <p>Compare your code to the actual code change</p>
               <pre className="code-block">
                 <code>git checkout {afterCommitSha}</code>
-              </pre>
-              <p>Review what changes were made to fix the issue:</p>
+              </pre> */}
+              <p>Compare you code with the actual PR fix</p>
               <pre className="code-block">
                 <code>git diff {afterCommitSha} HEAD</code>
               </pre>

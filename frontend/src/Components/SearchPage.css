@@ -206,6 +206,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  text-decoration: none;
 }
 .practice-button:hover {
   background-color: #2ea043;
@@ -223,4 +224,36 @@
 .no-prs {
   color: #586069;
   font-style: italic;
+}
+
+/* Change complexity indicator styles */
+.change-complexity {
+  margin-left: 10px;
+  font-size: 0.85rem;
+}
+
+.complexity-tag {
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.complexity-tag.minor {
+  background-color: #0366d6;
+  color: white;
+}
+
+.complexity-tag.moderate {
+  background-color: #f6a50a;
+  color: white;
+}
+
+.complexity-tag.major {
+  background-color: #d73a49;
+  color: white;
+}
+
+.complexity-tag.unknown {
+  background-color: #959da5;
+  color: white;
 }

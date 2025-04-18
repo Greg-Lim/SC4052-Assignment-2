@@ -51,7 +51,9 @@ function SearchPage() {
     setIssues([]);
     try {
       let queryString = '';
-      // queryString += 'label:"good first issue"';
+      if (searchParams.query) {
+        queryString += ` ${searchParams.query}`;
+      }
       if (searchParams.language) {
         queryString += ` label:${searchParams.language}`;
       }
@@ -86,14 +88,42 @@ function SearchPage() {
                 'X-GitHub-Api-Version': '2022-11-28'
               }
             });
+            let changeComplexity = "Unknown";
+            let associatedPRs = prsResponse.data.items;
+            if (associatedPRs.length > 0 && associatedPRs[0].pull_request) {
+              // Fetch PR details for the first associated PR
+              const prUrl = associatedPRs[0].pull_request.url;
+              const prNumber = prUrl.split("/").pop();
+              try {
+                const prDetailsResp = await octokit.request(
+                  "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+                  { owner, repo, pull_number: prNumber }
+                );
+                const prDetails = prDetailsResp.data;
+                const totalChanges = (prDetails.additions || 0) + (prDetails.deletions || 0);
+                if (totalChanges < 10) {
+                  changeComplexity = "Trivial < 10 lines";
+                } else if (totalChanges < 50) {
+                  changeComplexity = "Minor < 50 lines";
+                } else if (totalChanges < 200) {
+                  changeComplexity = "Moderate < 200 lines";
+                } else {
+                  changeComplexity = "Major > 200 lines";
+                }
+              } catch (e) {
+                changeComplexity = "Unknown";
+              }
+            }
             return {
               ...issue,
-              associatedPRs: prsResponse.data.items
+              associatedPRs,
+              changeComplexity
             };
           } catch (e) {
             return {
               ...issue,
-              associatedPRs: []
+              associatedPRs: [],
+              changeComplexity: "Unknown"
             };
           }
         })
@@ -201,14 +231,23 @@ function SearchPage() {
                       {issue.body ? issue.body.slice(0, 200) + (issue.body.length > 200 ? '...' : '') : 'No description provided.'}
                     </p>
                     <div className="issue-actions">
-                      <button 
-                        onClick={() => selectIssue(issue)} 
+                      <a 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          selectIssue(issue);
+                        }} 
+                        href="#"
                         className="practice-button"
                       >
                         Practice This Issue
-                      </button>
+                      </a>
                       <span className="issue-prs">
                         <span className="pr-count">✓ {issue.associatedPRs.length} PR{issue.associatedPRs.length > 1 ? 's' : ''}</span>
+                      </span>
+                      <span className="change-complexity">
+                        <span className={`complexity-tag ${issue.changeComplexity.toLowerCase()}`}>
+                          {issue.changeComplexity} Change
+                        </span>
                       </span>
                     </div>
                   </li>

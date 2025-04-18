@@ -51,9 +51,12 @@ function SearchPage() {
     setIssues([]);
     try {
       let queryString = '';
-      queryString += 'label:"good first issue"';
+      // queryString += 'label:"good first issue"';
       if (searchParams.language) {
         queryString += ` label:${searchParams.language}`;
+      }
+      if (searchParams.tag) {
+        queryString += ` label:"${searchParams.tag}"`;
       }
       if (searchParams.repoFormat) {
         queryString += ` repo:${searchParams.repoFormat}`;

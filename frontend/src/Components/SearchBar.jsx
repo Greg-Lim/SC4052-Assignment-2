@@ -5,6 +5,7 @@ const SearchBar = ({ onIssueSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [language, setLanguage] = useState('');
   const [repoFormat, setRepoFormat] = useState('');
+  const [tag, setTag] = useState('good first issue');
   const [isLoading, setIsLoading] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
@@ -18,6 +19,7 @@ const SearchBar = ({ onIssueSearch }) => {
       query: searchQuery.trim(),
       language: language.trim(),
       repoFormat: repoFormat.trim(),
+      tag: tag.trim(),
       state: 'closed',
       practiceMode: true // Always true to only show issues with PRs
     })
@@ -118,6 +120,18 @@ const SearchBar = ({ onIssueSearch }) => {
                   Use Greg-Lim/SC4052-Assignment-2
                 </button>
               </div>
+            </div>
+
+            <div className="filter-group">
+              <label htmlFor="tag-input" className="filter-label">Tag:</label>
+              <input
+                type="text"
+                id="tag-input"
+                className="filter-input"
+                placeholder="Enter a tag (e.g., bug, enhancement)"
+                value={tag}
+                onChange={(e) => setTag(e.target.value)}
+              />
             </div>
           </div>
         </div>

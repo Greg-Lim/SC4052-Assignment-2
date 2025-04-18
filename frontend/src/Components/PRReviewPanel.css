@@ -1,13 +1,17 @@
 /* PRReviewPanel.css */
 .pr-review-panel-container {
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 5rem);
   width: 100%;
-  max-width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: var(--surface-color, #fff);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   box-sizing: border-box;
   border: 1px solid #e1e4e8;
-  border-radius: 6px;
   background: #fafbfc;
-  padding: 2rem;
+  overflow: auto;
 }
 
 .repo-to-review {
@@ -16,12 +20,13 @@
   max-width: 100%;
   display: inline-block;
   vertical-align: middle;
-  padding: 10px;
-  margin: 1rem 0;
-  border: 1px solid #e1e4e8;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color, #ddd);
   border-radius: 4px;
   font-size: 1rem;
   background: #fff;
+  box-sizing: border-box;
 }
 
 .repo-sha-to-review {
@@ -29,74 +34,103 @@
   max-width: 600px;
   display: inline-block;
   vertical-align: middle;
-  padding: 10px;
-  border: 1px solid #e1e4e8;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color, #ddd);
   border-radius: 4px;
   font-size: 1rem;
   background: #fff;
+  flex: 1;
+  margin-bottom: 0;
 }
 
 .repo_to_review-container {
   flex-direction: column;
   align-items: stretch;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 16px;
   width: 100%;
 }
 
 .repo_to_review-container-second-line {
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 12px;
   width: 100%;
+  display: flex;
 }
 
 .repo-select-button {
   width: 100px;
   align-self: flex-end;
   display: inline-block;
-  padding: 10px 18px;
+  padding: 8px 16px;
   margin-left: 0.5rem;
   font-size: 1rem;
-  background: #2d72d9;
-  color: #fff;
+  background-color: var(--primary-color, #007bff);
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
   vertical-align: middle;
 }
+.repo-select-button:hover {
+  background-color: var(--primary-hover-color, #0069d9);
+}
 .repo-select-button:disabled {
-  background: #b2c6e0;
+  background-color: var(--disabled-color, #aaa);
   cursor: not-allowed;
 }
 
 .generate-hint-button, .check-answer-button {
   display: block;
-  padding: 10px 18px;
-  margin: 1rem 0;
+  padding: 8px 16px;
+  margin: 8px 0;
   font-size: 1rem;
-  background: #2d72d9;
-  color: #fff;
+  background-color: var(--accent-color, #28a745);
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
   width: 200px;
+  font-weight: 500;
+}
+
+.generate-hint-button:hover, .check-answer-button:hover {
+  background-color: var(--accent-hover-color, #218838);
 }
 
 .generate-hint-button:disabled, .check-answer-button:disabled {
-  background: #b2c6e0;
+  background-color: var(--disabled-color, #aaa);
   cursor: not-allowed;
 }
 
 .hint-container {
+  margin-top: 12px;
   margin-bottom: 1rem;
   text-align: left;
+  padding: 0 12px;
+  background-color: var(--hint-bg-color, #f8f9fa);
+  border-left: 4px solid var(--accent-color, #28a745);
+  border-radius: 0 4px 4px 0;
 }
 
+.hint-container h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--hint-title-color, #343a40);
+}
+
+.hint-container p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: var(--hint-text-color, #495057);
+}
+
+
 .review-container {
-  margin-top: 1.5rem;
+  margin-top: 20px;
   padding: 1rem;
   background-color: #f6f8fa;
   border: 1px solid #e1e4e8;
@@ -106,6 +140,10 @@
 
 .review-section, .solution-section {
   margin-bottom: 1.5rem;
+  padding: 16px;
+  background-color: var(--review-bg-color, #f0f8ff);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .review-section h3, .solution-section h3 {
@@ -115,7 +153,8 @@
 }
 
 .review-content {
-  line-height: 1.5;
+  margin-top: 8px;
+  line-height: 1.6;
   color: #24292e;
 }
 
@@ -132,7 +171,7 @@
 }
 
 .markdown-content {
-  line-height: 1.6;
+  line-height: 1;
   overflow-wrap: break-word;
 }
 
@@ -142,32 +181,33 @@
 .markdown-content h4,
 .markdown-content h5,
 .markdown-content h6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-top: 16px;
+  margin-bottom: 8px;
   font-weight: 600;
   line-height: 1.25;
 }
 
 .markdown-content p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
 .markdown-content code {
-  padding: 0.2em 0.4em;
+  padding: 2px 4px;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(27, 31, 35, 0.05);
-  border-radius: 3px;
+  background-color: var(--code-bg-color, #f1f1f1);
+  border-radius: 4px;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 }
 
 .markdown-content pre {
-  padding: 16px;
+  padding: 0 16px;
+  margin: 0;
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f6f8fa;
+  background-color: hsl(0, 0%, 100%);
   border-radius: 3px;
   word-wrap: normal;
 }
@@ -188,7 +228,7 @@
 .markdown-content ol {
   padding-left: 2em;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
 .markdown-content blockquote {
@@ -204,4 +244,120 @@
   margin: 24px 0;
   background-color: #e1e4e8;
   border: 0;
+}
+
+/* Code Diff Comparison Styles */
+.code-diff-comparison {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: var(--section-bg-color, #f5f5f5);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.diff-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 960px) {
+  .diff-container {
+    flex-direction: row;
+  }
+}
+
+.diff-section {
+  flex: 1;
+  background-color: var(--surface-color, #fff);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.diff-section h4 {
+  margin: 0;
+  padding: 12px 16px;
+  background-color: var(--header-bg-color, #f1f1f1);
+  border-bottom: 1px solid var(--border-color, #ddd);
+  font-size: 1rem;
+  
+}
+
+.original-diff h4 {
+  background-color: var(--original-header-color, #e3f2fd);
+}
+
+.user-diff h4 {
+  background-color: var(--user-header-color, #e8f5e9);
+}
+
+.diff-content {
+  max-height: 600px;
+  overflow-y: auto;
+  padding: 0;
+  text-align: left;
+}
+
+.file-diff {
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.file-header {
+  padding: 8px 16px;
+  background-color: var(--file-header-color, #f5f5f5);
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.diff-code {
+  margin: 0;
+  padding: 12px 16px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  line-height: 1.5;
+  background-color: var(--code-bg-color, #fafafa);
+}
+
+.diff-code .addition {
+  background-color: #e6ffed;
+  color: #22863a;
+}
+
+.diff-code .deletion {
+  background-color: #ffeef0;
+  color: #cb2431;
+}
+
+/* Apply syntax highlighting for diff lines */
+.diff-code {
+  counter-reset: line;
+}
+
+/* Style for diff additions and deletions */
+.diff-code span {
+  display: block;
+  counter-increment: line;
+}
+
+.diff-code span::before {
+  content: counter(line);
+  display: inline-block;
+  width: 2.5em;
+  padding-right: 0.5em;
+  margin-right: 0.5em;
+  text-align: right;
+  color: #999;
+  border-right: 1px solid #eee;
+}
+
+/* When there's no user diff available */
+.diff-section p {
+  padding: 16px;
+  color: #666;
+  font-style: italic;
 }

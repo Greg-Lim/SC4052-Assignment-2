@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactMarkdown from 'react-markdown';
 import './PracticeInstructions.css';
 
 const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
@@ -47,8 +48,10 @@ const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
       </div>
       <div className="issue-body">
         <h3>Issue Description</h3>
-        <div className="markdown-body">
-          {issue.body || 'No description provided.'}
+        <div className="markdown-body markdown-content">
+          <ReactMarkdown>
+            {issue.body || 'No description provided.'}
+          </ReactMarkdown>
         </div>
       </div>
       {issue.comments && issue.comments.length > 0 && (
@@ -68,8 +71,10 @@ const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
                     on {new Date(comment.created_at).toLocaleDateString()}
                   </span>
                 </div>
-                <div className="comment-body">
-                  {comment.body}
+                <div className="comment-body markdown-content">
+                  <ReactMarkdown>
+                    {comment.body}
+                  </ReactMarkdown>
                 </div>
               </li>
             ))}
@@ -92,7 +97,9 @@ const PracticeInstructions = ({ issue, repoLog, ghAccount }) => {
                   <span className="pr-number">#{pr.number}</span>
                 </div>
                 <p className="pr-description">
-                  {pr.body ? pr.body.slice(0, 200) + (pr.body.length > 200 ? '...' : '') : 'No description provided.'}
+                  <ReactMarkdown>
+                    {pr.body ? pr.body.slice(0, 200) + (pr.body.length > 200 ? '...' : '') : 'No description provided.'}
+                  </ReactMarkdown>
                 </p>
               </li>
             ))}

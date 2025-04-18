@@ -1,7 +1,7 @@
 /* Styles for PracticeInstructions (selected issue, comments, PRs, instructions, modal, etc.) */
 .selected-issue-container {
   width: 100%;
-  max-height: calc(100vh - 4rem);
+  max-height: calc(100vh - 5rem);
   overflow: auto;
   text-align: left;
   background-color: white;
@@ -54,7 +54,7 @@
 }
 .markdown-body {
   font-size: 0.95rem;
-  line-height: 1.6;
+  /* line-height: 1.6; */
   color: #24292e;
   padding: 1rem;
   background-color: #f6f8fa;
